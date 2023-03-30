@@ -1,8 +1,11 @@
+#hide secret folder
+.secret_folder/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
+.key
 # C extensions
 *.so
 

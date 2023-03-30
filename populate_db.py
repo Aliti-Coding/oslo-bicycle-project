@@ -36,7 +36,7 @@ class Station(Base):
             lat={self.lat}, lon={self.lon}, capacity={self.capacity}>"
     
 
-#syntax for creating all tables written as classes
+#syntax for creating all tables written as classes (a blueprint)
 # Base.metadata.create_all(engine)
 
 
