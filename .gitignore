@@ -1,5 +1,5 @@
 #hide secret folder
-.secret_folder/
+secret_folder/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
