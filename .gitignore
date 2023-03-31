@@ -1,6 +1,6 @@
 #hide secret folder
 secret_folder/
-
+zip
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

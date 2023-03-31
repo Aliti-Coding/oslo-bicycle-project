@@ -4,11 +4,16 @@
 1. https://oslobysykkel.no/apne-data
 2. https://statistikkbanken.oslo.kommune.no/webview/index.jsp?catalog=http%3A%2F%2Fstatistikkbanken.oslo.kommune.no%3A80%2Fobj%2FfCatalog%2FCatalog52&submode=catalog&mode=documentation&top=yes
 
+### how the program works
+source code is python
+the database is created in azure
 
 
 ### steps to be taken
 1. extract all the availbel data and store it in a database
 2. create the database architecture 
-3. use machinelearning to forcast the demand
-4. create the etl pipeline
+3. create the etl pipeline
+
+stretch
+4. use machinelearning to forcast the demand
 
