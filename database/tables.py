@@ -23,9 +23,9 @@ class Station(Base):
     capacity = Column(Integer)
 
     def __repr__(self):
-        return f"<Station(stationd_id={self.station_id}, name={self.name},\
+        return f"Station(stationd_id={self.station_id}, name={self.name},\
             address={self.address}, android{self.android}, ios={self.ios}),\
-            lat={self.lat}, lon={self.lon}, capacity={self.capacity}>"
+            lat={self.lat}, lon={self.lon}, capacity={self.capacity}"
 
 class Turhistorikk(Base):
     __tablename__  = "turhistorikk"
@@ -39,15 +39,25 @@ class Turhistorikk(Base):
     start_station_latitude = Column(Float)
     start_station_longitude = Column(Float)
     end_station_id = Column(Integer, ForeignKey('station.station_id'))
-    end_station_name = Column(Integer)
+    end_station_name = Column(String)
     end_station_description = Column(String)
     end_station_latitude = Column(Float)
     end_station_longitude = Column(Float)
     start_station = relationship('Station', foreign_keys=[start_station_id])
     end_station = relationship('Station', foreign_keys=[end_station_id])
 
+    def __repr__(self):
+        return f"Turhistorikk(tur_id={self.tur_id}, started_at='{self.started_at}', \
+        ended_at='{self.ended_at}', duration={self.duration}, start_station_id={self.start_station_id}, \
+        start_station_name='{self.start_station_name}', start_station_description='{self.start_station_description}',\
+        start_station_latitude={self.start_station_latitude}, start_station_longitude={self.start_station_longitude}, \
+        end_station_id={self.end_station_id}, end_station_name='{self.end_station_name}', \
+        end_station_description='{self.end_station_description}', end_station_latitude={self.end_station_latitude}, \
+        end_station_longitude={self.end_station_longitude})"
+
 #syntax for creating all tables written as classes (a blueprint)
 Base.metadata.create_all(engine)
+
 
 
 

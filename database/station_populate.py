@@ -21,7 +21,7 @@ def formating(json):
 
     for element in json['data']['stations']:
         transformed_data.append(
-        {"station_id": element['station_id'], 
+        {"station_id": int(element['station_id']), 
         "name": element['name'],
         "address": element['address'],
         "android": element['rental_uris']['android'],
@@ -54,19 +54,23 @@ existing_station = set([stations[0] for stations in existing_station])
 # check if there are any new stations uploaded in the from the api call
 # if yes, add it to the database
 compare_current_existing = current_station.difference(existing_station)
+compare_current_existing = list(compare_current_existing)
+
+new_station_to_add = [x for x in formating(response) if x['station_id'] in compare_current_existing]
 
 
-if len(compare_current_existing) > 0:
+if len(new_station_to_add) > 0:
 
     # this is logic not necessary, but is efficient for huge big data injection to the database 
     # inserting rows in batches. increased effiency and avoid overload on database
     BATCH_SIZE = 10 #here you can decide how large batches you want to populate the table
     with session as se:
 
-        for i in range(0, len(compare_current_existing), BATCH_SIZE):
+        for i in range(0, len(new_station_to_add), BATCH_SIZE):
             # print(i)
             print("new batch!\n")
-            batch = compare_current_existing[i:i+BATCH_SIZE]
+            batch = new_station_to_add[i:i+BATCH_SIZE]
             print(batch)
+            
             se.bulk_insert_mappings(Station, batch)
             se.commit()

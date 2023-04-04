@@ -2,5 +2,6 @@ x = {"apple", "banana", "cherry"}
 y = {"google", "microsoft", "apple"}
 
 z = x.intersection(y) 
-for row in x:
-    print(row)
+
+
+print(list(x))
