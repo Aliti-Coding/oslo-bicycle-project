@@ -2,8 +2,7 @@ from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, 
 from sqlalchemy.orm import declarative_base, Session, sessionmaker
 import json
 
-
-def connect_2_db():
+def connection2db():
     with open(r"secret_folder\db_password.key", "r") as f:
         password_key = f.read()
 
@@ -16,6 +15,11 @@ def connect_2_db():
 
     Base = declarative_base() #mapper 
     engine = create_engine(f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}")
-    Base.metadata.bind = engine
-    return Session(bind=engine)
+    return engine
+
+engine = connection2db()
+
+print(engine)
+
+session = Session(bind=engine)
 
