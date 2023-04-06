@@ -5,6 +5,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy import create_engine, Table, ForeignKey,MetaData, Table, Column, Integer, String, DateTime, Sequence, Float, delete
 from connectdb import connection2db
 from tables import Turhistorikk
+from unique_id import UniqueId
+import pandas as pd
 
 engine = connection2db()
 Base = declarative_base()
@@ -13,30 +15,37 @@ Base = declarative_base()
 session = Session(bind=engine)
 
 
+
+
+
+
+
 #access the json files with travel data
-with zipfile.ZipFile(r'turhistorikk.zip', 'r') as zip_ref:
+all_files_data = []
+with zipfile.ZipFile(r'..\turhistorikk.zip', 'r') as zip_ref:
     for file_name in zip_ref.namelist():
+        # print(file_name)
         with zip_ref.open(file_name, 'r') as file:
             data = json.load(file)
+            # print(len(data))
 
-            #convert station_id from string to integer
             for l in data:
+
                 start_station = int(l['start_station_id'])
                 l['start_station_id'] = start_station
                 
                 end_station = int(l['end_station_id'])
                 l['end_station_id'] = end_station
+                all_files_data.append(l)
 
-
-BATCH_SIZE = 1000
-
+BATCH_SIZE = 10
 
 with session as se:
 
     for row in range(0, len(data), BATCH_SIZE):
         batch = data[row:row+BATCH_SIZE]
         
-        # try-except block i needed because historical data contains station_id that does not exist in station table
+        # try-except block is needed because historical data contains station_id that does not exist in station table
         # most likly those are stations removed from the station api
         # to solve this problem we just skip this batch that causes the error
         try:

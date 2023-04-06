@@ -59,6 +59,7 @@ compare_current_existing = list(compare_current_existing)
 new_station_to_add = [x for x in formating(response) if x['station_id'] in compare_current_existing]
 
 
+
 if len(new_station_to_add) > 0:
 
     # this is logic not necessary, but is efficient for huge big data injection to the database 

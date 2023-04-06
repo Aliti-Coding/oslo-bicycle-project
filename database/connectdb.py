@@ -12,8 +12,6 @@ def connection2db():
     DATABASE = "oslo_sykkel_project"
     HOST = "bicycle-db.postgres.database.azure.com"
 
-
-    Base = declarative_base() #mapper 
     engine = create_engine(f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}")
     return engine
 
